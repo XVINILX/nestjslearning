@@ -7,14 +7,17 @@ import {
   Param,
   Post,
   Put,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdatePutUserDto } from './dtos/update-put-user.dto';
 import { UserService } from './user.service';
-
+import { LogInterceptor } from 'src/interceptor/log.interceptor';
+@UseInterceptors(LogInterceptor)
 @Controller('/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
   @Get()
   getUserList() {
     return this.userService.listUser();
